@@ -1,0 +1,26 @@
+remote_theme: just-the-docs/just-the-docs
+title: Brain cached
+description: 잘 까먹는 사람의 메모장
+baseurl: "/"
+url: "https://cony56.github.io"
+
+# Aux Links for the upper right navigation
+
+aux_links: "https://github.com/cony56"
+
+gh_edit_link: true # show or hide edit this page link
+gh_edit_link_text: "Edit this page on Github"
+gh_edit_repository: "https://github.com/cony56"
+
+searched_enabled: true
+
+search:
+  heading_level: 2
+  previews: 3
+  preview_words_before: 5
+  preview_words_after: 10
+  tokenizer_separator: /[\s/]+/
+  rel_url: true
+  button: False
+
+color_scheme: nil
