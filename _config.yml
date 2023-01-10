@@ -1,5 +1,4 @@
-#remote_theme: just-the-docs
-theme: just-the-docs
+remote_theme: just-the-docs
 title: Brain cached
 description: 잘 까먹는 사람의 메모장
 baseurl: "/"
