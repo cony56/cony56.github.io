@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: index
 title: Local Database와 Docker 내 웹서버 연결
 nav_order: 1
 ---

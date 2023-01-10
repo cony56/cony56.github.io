@@ -1,6 +1,6 @@
 ---
-layout: default
-title: Local Database와 Docker 내 웹서버 연결
+layout: index
+title: Docker timezone 변경.md
 nav_order: 1
 ---
 

@@ -1,6 +1,6 @@
 ---
-layout: default
-title: Local Database와 Docker 내 웹서버 연결
+layout: index
+title: Docker 오프라인 환경 이미지 구축
 nav_order: 1
 ---
 

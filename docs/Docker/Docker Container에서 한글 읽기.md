@@ -1,6 +1,6 @@
 ---
-layout: default
-title: Local Database와 Docker 내 웹서버 연결
+layout: index
+title: Docker Container에서 한글 읽기
 nav_order: 1
 ---
 
