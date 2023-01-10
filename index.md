@@ -9,7 +9,7 @@ permalink: /
 # 잘 까먹는 사람의 메모장
 {:.fs-8}
 
-Github Description
+MLOPS를 곁들이려는 NLP 프로젝트 진행기
 {: .fs-6 .fw-300}
 
 
