@@ -1,10 +1,36 @@
-remote_theme: just-the-docs/just-the-docs
+#remote_theme: just-the-docs
+theme: just-the-docs
 title: Brain cached
 description: 잘 까먹는 사람의 메모장
 baseurl: "/"
 url: "https://cony56.github.io"
 
+permalink: pretty
 # Aux Links for the upper right navigation
+
+exclude:
+ # from https://github.com/jekyll/jekyll/blob/master/lib/site_template/_config.yml:
+   - .sass-cache/
+   - .jekyll-cache/
+   - gemfiles/
+   - Gemfile
+   - Gemfile.lock
+   - node_modules/
+   - vendor/bundle/
+   - vendor/cache/
+   - vendor/gems/
+   - vendor/ruby/
+ # specific to the theme website:
+   - bin/
+   - lib/
+   - "*.gemspec"
+   - "*.gem"
+   - LICENSE.txt
+   - package.json
+   - package-lock.json
+   - Rakefile
+   - README.md
+
 
 aux_links: "https://github.com/cony56"
 
@@ -23,4 +49,18 @@ search:
   rel_url: true
   button: False
 
+back_to_top: true
+back_to_top_text: "Back to top"
+
 color_scheme: nil
+
+plugins:
+  - jekyll-seo-tag
+
+compress_html:
+  clippings: all
+  comments: all
+  endings: all
+  startings: []
+  blanklines: false
+  profile: false
