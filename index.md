@@ -1,11 +1,11 @@
 ---
-title: Home
+title: Main Page
 nav_order: 1
 description: "description"
 permalink: /
 ---
 
-# Welcome to github.io
+# 잘 까먹는 사람의 메모장
 {:.fs-8}
 
 Github Description
