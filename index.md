@@ -5,10 +5,9 @@ description: "description"
 permalink: /
 ---
 
-# 잘 까먹는 사람의 메모장
+# Welcome to github.io
 {:.fs-8}
-
-Github Description
+Github Descr
 {: .fs-6 .fw-300}
 
 블로그가 생성되었습니다
