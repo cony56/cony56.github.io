@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Home
+title: 잘 까먹는 사람의 블로그
 nav_order: 1
 description: "description"
 permalink: /
@@ -9,7 +9,7 @@ permalink: /
 # 잘 까먹는 사람의 메모장
 {:.fs-8}
 
-Github Descr
+Github Description
 {: .fs-6 .fw-300}
 
 
