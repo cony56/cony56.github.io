@@ -1,6 +1,6 @@
 ---
 layout: index
-title: Docker timezone 변경.md
+title: Docker timezone 변경
 nav_order: 6
 parent: Docker
 permalink: /Docker5
