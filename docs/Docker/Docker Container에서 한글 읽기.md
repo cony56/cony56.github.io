@@ -1,8 +1,9 @@
 ---
 layout: index
 title: Docker Container에서 한글 읽기
-nav_order: 4
+nav_order: 5
 parent: Docker
+permalink: /Docker4
 ---
 
 작성일자: 2022/10/06
