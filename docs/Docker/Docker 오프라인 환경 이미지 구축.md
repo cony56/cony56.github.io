@@ -1,8 +1,9 @@
 ---
 layout: index
 title: Docker 오프라인 환경 이미지 구축
-nav_order: 1
-parent: Home
+nav_order: 2
+parent: Docker
+permalink: /Docker2
 ---
 
 작성일자: 2022/04/07
