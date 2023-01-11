@@ -2,6 +2,7 @@
 layout: index
 title: Docker timezone 변경.md
 nav_order: 1
+parent: Home
 ---
 
 작성일자: 2022/10/06

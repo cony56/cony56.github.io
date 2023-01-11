@@ -1,7 +1,8 @@
 ---
 layout: index
 title: Docker Container에서 한글 읽기
-nav_order: 1
+nav_order: 4
+parent: Home
 ---
 
 작성일자: 2022/10/06
