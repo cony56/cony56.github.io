@@ -1,7 +1,7 @@
 ---
 layout: index
 title: Network
-nav_order: 1
+nav_order: 5
 has_children: true
 ---
 
