@@ -1,9 +1,9 @@
 ---
 layout: index
 title: Local Database와 Docker 내 웹서버 연결
-nav_order: 4
+nav_order: 3
 parent: Docker
-permalink: /Docker3
+permalink: /Docker2
 ---
 
 작성일자: 2022/05/26

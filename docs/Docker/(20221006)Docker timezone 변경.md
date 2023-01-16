@@ -1,9 +1,9 @@
 ---
 layout: index
 title: Docker timezone 변경
-nav_order: 6
+nav_order: 5
 parent: Docker
-permalink: /Docker5
+permalink: /Docker4
 ---
 
 작성일자: 2022/10/06
