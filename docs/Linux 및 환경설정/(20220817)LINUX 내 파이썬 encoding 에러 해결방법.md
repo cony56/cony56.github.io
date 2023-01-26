@@ -1,6 +1,6 @@
 ---
 layout: index
-title: PyKoSpacing docker container내에서 적용하기
+title: LINUX 내 파이썬 encoding 에러 해결
 nav_order: 8
 parent: Linux
 permalink: /Linux7
