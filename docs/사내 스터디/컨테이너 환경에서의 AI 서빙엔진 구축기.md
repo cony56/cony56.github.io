@@ -6,7 +6,7 @@ parent: Tech_Study
 permalink: /Tech_Study1
 ---
 
-작성일자: 2023/01/21
+작성일자: 2023/04/16
 
 # 컨테이너 환경에서의 AI 서빙엔진 구축기(1)
 
