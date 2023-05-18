@@ -84,7 +84,7 @@ Cuda 및 드라이버 설치를 위한 여러 방법 중 가장 심플한 방법
 
 Cuda 11.4 Toolkit은 Nvidia 공식 홈페이지에서 다운 가능합니다.
 
- <img src="/docs/사내스터디/image/gpu1.png" width="640" height="480">
+ <img src="/docs/InDB_Study/image/gpu1.png" width="640" height="480">
 
 https://developer.nvidia.com/cuda-11-4-0-download-archive?target_os=Linux&target_arch=x86_64&Distribution=CentOS&target_version=7&target_type=rpm_local
 
@@ -113,7 +113,7 @@ export LD_LIBRARY_PATH
 
 이후 bash shell에서 `nvidia-smi` 명령어를 통해 driver와 cuda의 설치 여부를 확인할 수 있습니다.
 
- <img src="/docs/사내스터디/image/gpu2.png" width="640" height="480">
+ <img src="/docs/InDB_Study/image/gpu2.png" width="640" height="480">
 
 아래 예시 사진을 보면 현재 장착된 gpu의 사용량과 해당 gpu를 사용중인 Process, driver version과 Cuda Version 등을 확인할 수 있습니다.
 
@@ -244,11 +244,11 @@ nvidia-docker2-~.rpm(docker 버전에 따라 필수 여부 결정됨)
 
 컨테이너 내부에는 외부로부터 데이터를 받아 AI 결과값을 반환하는 API 서버가 있습니다. 파이썬에서는 일반적으로 API 서버 구축을 위해 Flask, FastAPI와 같은 웹프레임워크를 사용합니다. 하지만 딥러닝을 활용하는 서비스에서 해당 웹프레임워크 만으로 통신을 주고 받으면 GPU 자원을 효율적으로 쓰기 어렵고, 이로 인해 API 성능 또한 현저하게 떨어집니다. 이를 해결하기 위해 현재 진행중인 서비스에서는 아래와 같이 3가지 계층으로 서빙 아키텍처를 구축하였습니다.
 
- <img src="/docs/사내스터디/image/gpu3.png" width="640" height="480">
+ <img src="/docs/InDB_Study/image/gpu3.png" width="640" height="480">
 
 TorchServe는 pytorch로 생성한 모델을 프로덕션 환경에서 쉽게 배포하고 서빙하기 위한 프레임워크입니다. Torchserve는 API를 통해 **모델 관리**와 **추론**(Inference) 기능을 지원합니다. **모델 관리**란 복수의 모델을 gpu에 등록, 해지하는 작업, 그리고 각 모델당 워커의 개수(GPU 수)를 할당하는 등의 조정을 할 수 있습니다. **추론**이란 AI가 입력값을 받아 예측값을 반환하는 작업을 의미합니다.
 
-<img src="/docs/사내스터디/image/gpu5.png" width="640" height="480">
+<img src="/docs/InDB_Study/image/gpu5.png" width="640" height="480">
 
 Torchserve를 기동하면 내부적으로 2개의 포트(모델 관리, 추론)를 활용하여 클라이언트와 통신 합니다. 이 때 통신방법은 rest api 혹은 grpc 중 하나를 선택할 수 있으며 세부적인 인터페이스는 공식 홈페이지에서 참고 가능합니다.
 
@@ -256,7 +256,7 @@ https://pytorch.org/serve/management_api.html#register-a-model
 
 이 프레임워크의 가장 큰 이점은 미리 명시된 API를 통해 GPU 자원을 효율적으로 관리하고 모니터링 할 수 있다는 점입니다. 일반적인 웹프레임워크에서 pytorch 모델로 추론을 할 때는 모델을 호출하는 부분에서는 배포시 저장되어 있는 모델만을 활용할 수 있습니다. 또한 추론 API를 요청할 때 gpu 사용 시점에서 모델이 GPU 메모리에 올라갔다 내려갔다를 반복합니다. 하지만 torchserve  서비스 환경에서 모델의 생성과 해지를 배포없이 무중단으로 진행할 수 있으며, 여러 모델이 GPU 메모리에 올라간 상태에서 프레임워크의 룰에 따라 자원을 효율적으로 사용합니다.
 
-<img src="/docs/사내스터디/image/gpu4.png" width="640" height="480">
+<img src="/docs/InDB_Study/image/gpu4.png" width="640" height="480">
 
 GRPC는 구글에서 언어에 제약없이 빠른 통신을 하기 위해 만든 통신 프레임워크입니다. json 파일을 주고 받는 Rest API와 다르게 GRPC는 IDL을 통해 메시지의 형식을 미리 정해두고 이를 Protocol Buffer라는 방식으로 직렬화합니다. 이 때 직렬화란 전송하고자 하는 데이터의 형태를 정해진 포맷으로 변경하는 것을 의미합니다. Protocol Buffer는 데이터를 바이너리 파일로 압축하여 직렬화하는 과정에서 데이터 사이즈를 축소하기 때문에 텍스트, 이미지와 같은 대용량 데이터 전송에서 성능의 이점을 갖게 됩니다. 현재 TA 서비스에서는 10분 이상의 대화내역을 input으로 받는 경우가 있기 때문에 GRPC를 통해 torchserve와 통신하는 방법을 적용하였습니다.
 
