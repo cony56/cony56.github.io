@@ -1,5 +1,4 @@
-\---
-
+---
 layout: index
 
 title: 컨테이너 환경에서의 AI 서빙엔진 구축기(2)
@@ -10,8 +9,7 @@ parent: Tech_Study
 
 permalink: /Tech_Study2
 
-\---
-
+---
 
 
 작성일자: 2023/05/17
