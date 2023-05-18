@@ -84,7 +84,7 @@ Cuda 및 드라이버 설치를 위한 여러 방법 중 가장 심플한 방법
 
 Cuda 11.4 Toolkit은 Nvidia 공식 홈페이지에서 다운 가능합니다.
 
- <img src="/docs/Indb_Study/image/gpu1.png" width="640" height="480">
+<img src="/docs/Indb_Study/image/gpu1.png" width="1020" height="800">
 
 https://developer.nvidia.com/cuda-11-4-0-download-archive?target_os=Linux&target_arch=x86_64&Distribution=CentOS&target_version=7&target_type=rpm_local
 
