@@ -16,7 +16,7 @@ permalink: /Tech_Study2
 
 
 
-#  컨테이너 환경에서의 AI 서빙엔진 구축기(1)
+#  컨테이너 환경에서의 AI 서빙엔진 구축기(2)
 
 
 
@@ -243,6 +243,8 @@ nvidia-docker2-~.rpm(docker 버전에 따라 필수 여부 결정됨)
 
  <img src="/docs/Indb_Study/image/gpu3.png" width="1830" height="1000">
 
+### TorchServe
+
 TorchServe는 pytorch로 생성한 모델을 프로덕션 환경에서 쉽게 배포하고 서빙하기 위한 프레임워크입니다. Torchserve는 API를 통해 **모델 관리**와 **추론**(Inference) 기능을 지원합니다. **모델 관리**란 복수의 모델을 gpu에 등록, 해지하는 작업, 그리고 각 모델당 워커의 개수(GPU 수)를 할당하는 등의 조정을 할 수 있습니다. **추론**이란 AI가 입력값을 받아 예측값을 반환하는 작업을 의미합니다.
 
 <img src="/docs/Indb_Study/image/gpu5.png" width="1540" height="1000">
@@ -253,9 +255,45 @@ https://pytorch.org/serve/management_api.html#register-a-model
 
 이 프레임워크의 가장 큰 이점은 미리 명시된 API를 통해 GPU 자원을 효율적으로 관리하고 모니터링 할 수 있다는 점입니다. 일반적인 웹프레임워크에서 pytorch 모델로 추론을 할 때는 모델을 호출하는 부분에서는 배포시 저장되어 있는 모델만을 활용할 수 있습니다. 또한 추론 API를 요청할 때 gpu 사용 시점에서 모델이 GPU 메모리에 올라갔다 내려갔다를 반복합니다. 하지만 torchserve  서비스 환경에서 모델의 생성과 해지를 배포없이 무중단으로 진행할 수 있으며, 여러 모델이 GPU 메모리에 올라간 상태에서 프레임워크의 룰에 따라 자원을 효율적으로 사용합니다.
 
+
+
+### GRPC
+
+
+
+GRPC는 구글에서 언어에 제약없이 효율적으로 통신하기 위해 만든 통신 프레임워크입니다. 
+
+RPC라는 기술의 개념과 Protocol Buffer, HTTP/2의 개념을 통해 GRPC의 작동원리를 이해할 수 있습니다.
+
+#### RPC(Remote Procedure Call)
+
+<img src="/docs/Indb_Study/image/grpc1.png" width="1540" height="1000">
+
+RPC는 원격으로 프로시저(함수, 메서드 등)를 호출할 수 있는 기능입니다. 이름에서 알 수 있듯이 원격지(다른 서버)에 있는 자원을 내 것처럼 사용한다는 의미를 내재하고 있습니다. RPC의 특징은 IDL(Interface Definition Language) 기반으로 다양한 언어를 가진 환경에서 쉽게 확장이 가능하다는 것입니다.
+
+RPC에서는 proto 파일에 주고 받는 데이터를 message라는 형식으로 정의합니다. 또한 Service를 통해 서버가 클라이언트에게 제공할 함수의 형태를 정의합니다. 이후 rpcgen이란 컴파일러를 통해 proto 파일을 서버, 클라이언트 서버에서 컴파일합니다.
+
+이 때 Stub이 생성되는데 Stub은 서버와 클라이언트가 매개변수를 이해할 수 있게 도와주는 매개체라고 생각하면 편합니다. 서버/클라이언트는 서로 다른 주소 공간을 사용하기 때문에 함수 호출에 사용된 매개 변수를 변환해야 합니다. 이를 위해 클라이언트 쪽 stub에서 매개 변수를 변환하는 작업을 Marshalling, 서버 쪽 stub에서 역변환하는 작업을 Unmarshalling이라 합니다. 
+
+
+
+#### Protocol Buffer
+
 <img src="/docs/Indb_Study/image/gpu4.png" width="1540" height="1000">
 
-GRPC는 구글에서 언어에 제약없이 빠른 통신을 하기 위해 만든 통신 프레임워크입니다. json 파일을 주고 받는 Rest API와 다르게 GRPC는 IDL을 통해 메시지의 형식을 미리 정해두고 이를 Protocol Buffer라는 방식으로 직렬화합니다. 이 때 직렬화란 전송하고자 하는 데이터의 형태를 정해진 포맷으로 변경하는 것을 의미합니다. Protocol Buffer는 데이터를 바이너리 파일로 압축하여 직렬화하는 과정에서 데이터 사이즈를 축소하기 때문에 텍스트, 이미지와 같은 대용량 데이터 전송에서 성능의 이점을 갖게 됩니다. 현재 TA 서비스에서는 10분 이상의 대화내역을 input으로 받는 경우가 있기 때문에 GRPC를 통해 torchserve와 통신하는 방법을 적용하였습니다.
+RPC가 데이터의 교환 방식에 대한 기술이라면 Protocol Buffer는 데이터 직렬화 기술입니다. 직렬화란 데이터를 바이트 스트림으로 변환하는 방식입니다. IDL을 통해 정의된 message는 Key-value 쌍으로 이루어진 바이너리 데이터로 인코딩이 됩니다. 이 때 Key값은 Field Number와 Field의 data type의 조합으로 이루어집니다. Protocol Buffer 방식을 사용하면 다른 구조에 비해 데이터 크기가 작아 통신 시간이 단축됩니다.
+
+
+
+#### HTTP/2.0
+
+<img src="/docs/Indb_Study/image/grpc2.png" width="1540" height="1000">
+
+grpc는 http/2.0 프로토콜 위에서 동작합니다. 기존의 http/1.1(REST API)와 비교했을 때 크게 두가지 차이가 있습니다. 2.0 버전에서는 양방향 통신이 가능합니다. 클라이언트에서 서버로 요청하는 REST API와 다르게 필요시 요청 없이도 서버에서 클라이언트로 데이터를 전송할 수 있습니다. 또 다른 차이점은 요청 별로 connection을 생성하는게 아니라 한 connection에서 여러 메시지를 주고 받을 수 있다는 것입니다. 이를 통해 기존의 HTTP/1.1 버전에서 매 요청별 동일한 Header를 전송하는 방식에서, Header 테이블을 두고 동일 헤더를 압축해 경량화 후, 전달하는 방식으로 효율성을 최적화하였습니다. 
+
+
+
+GRPC는 특히 대용량의 데이터를 전송할 때 성능이 좋기 때문에 딥러닝 서비스 뿐 아니라 사진, 텍스트 전송이 필요한 여러 분야에서 사용중입니다. 또한 IDL에 사전 정의된 규약만 있으면 서로 다른 언어로 구성된 프레임워크 간 통신이 용이합니다. 이는 요새 트랜드인 MSA(Micro Service Architecture) 환경에서 데이터를 주고 받을 때 많이 쓰이며 구글 또한 실제로 컨테이너로 구성된 MSA 환경에서의 편의성을 위해 개발하였다고 합니다.
 
 
 
