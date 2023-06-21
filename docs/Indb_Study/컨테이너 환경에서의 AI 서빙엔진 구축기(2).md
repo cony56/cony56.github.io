@@ -265,7 +265,7 @@ GRPC는 구글에서 언어에 제약없이 효율적으로 통신하기 위해 
 
 RPC라는 기술의 개념과 Protocol Buffer, HTTP/2의 개념을 통해 GRPC의 작동원리를 이해할 수 있습니다.
 
-#### RPC(Remote Procedure Call)
+### RPC(Remote Procedure Call)
 
 <img src="/docs/Indb_Study/image/grpc1.png" width="1540" height="1000">
 
@@ -277,7 +277,7 @@ RPC에서는 proto 파일에 주고 받는 데이터를 message라는 형식으�
 
 
 
-#### Protocol Buffer
+### Protocol Buffer
 
 <img src="/docs/Indb_Study/image/gpu4.png" width="1540" height="1000">
 
@@ -285,7 +285,7 @@ RPC가 데이터의 교환 방식에 대한 기술이라면 Protocol Buffer는 �
 
 
 
-#### HTTP/2.0
+### HTTP/2.0
 
 <img src="/docs/Indb_Study/image/grpc2.png" width="1540" height="1000">
 
